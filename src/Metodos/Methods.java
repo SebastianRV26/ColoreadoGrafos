@@ -35,15 +35,24 @@ public class Methods {
      * @param nombre nombre del vértice
      * @return "insertado"
      */
-    public String insertarVertices(int nombre) {
+    public boolean insertarVertices(int nombre) {
         vertice nuevo = new vertice(nombre, false);
         if (grafo == null) {
             grafo = nuevo;
-            return "Insertado";
+            return true;
         }
-        nuevo.sigV = grafo; //insersion al inicio de una lista
-        grafo = nuevo;
-        return "";
+        vertice aux = grafo;
+        while (aux != null) {
+            if (aux.nombre == nombre) {
+                return false;
+            }
+            if (aux.sigV == null) {
+                aux.sigV = nuevo;
+                return true;
+            }
+            aux = aux.sigV;
+        }
+        return false;
     }
 
     /**
